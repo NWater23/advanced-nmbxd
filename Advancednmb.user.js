@@ -12,7 +12,7 @@
 // @match       https://adnmb3.com/*
 // @require     https://code.jquery.com/jquery-2.2.4.min.js
 // @license     Apache License, Version 2.0 (Apache-2.0); https://opensource.org/licenses/Apache-2.0
-// @version     0.4.1
+// @version     0.4.2
 // @author      no1xsyzy
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -72,15 +72,16 @@
   }
 
   function 自动标题 () {
+    const page = params.page || 1;
     const title = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-info .h-threads-info-title').textContent.trim();
     if (title !== '无标题') {
-      document.querySelector('title').textContent = title;
+      document.querySelector('title').textContent = `${title} - page. ${page} - A岛匿名版`;
       return
     }
     const lines = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content').textContent.split('\n');
-    for (let line in lines) {
-      if (!(line = line.trim())) {
-        document.querySelector('title').textContent = line;
+    for (let line of lines) {
+      if ((line = line.trim()) !== '') {
+        document.querySelector('title').textContent = `${line} - page. ${page} - A岛匿名版`;
         return
       }
     }
