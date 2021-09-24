@@ -5,8 +5,13 @@
   "main": "src/main.js",
   "scripts": {
     "build": "rollup -c",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "add_built": "git add Advancednmb.user.js"
   },
+  "pre-commit":[
+    "build",
+    "add_built"
+  ],
   "author": "no1xsyzy",
   "license": "Apache-2.0",
   "devDependencies": {
@@ -17,6 +22,7 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
+    "pre-commit": "^1.2.2",
     "rollup": "^2.56.3",
     "rollup-plugin-userscript-metablock": "^0.3.1"
   },
