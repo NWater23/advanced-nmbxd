@@ -12,7 +12,7 @@
 // @match       https://adnmb3.com/*
 // @require     https://code.jquery.com/jquery-2.2.4.min.js
 // @license     Apache License, Version 2.0 (Apache-2.0); https://opensource.org/licenses/Apache-2.0
-// @version     0.4.2
+// @version     0.4.3
 // @author      no1xsyzy
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -95,6 +95,10 @@
     自动标题();
   }
 
+  function 串只看po () {
+    自动标题();
+  }
+
   function 版块 () {
     注册粘贴图片();
   }
@@ -118,7 +122,7 @@
       版块();
       break
     case 'Forum':
-      if (pathsegs[1] === 'po' && pathsegs[2] === 'id') { 版块(); } else { 未知(); }
+      if (pathsegs[1] === 'po' && pathsegs[2] === 'id') { 串只看po(); } else { 未知(); }
       break
     case 'Home':
       if (path === '/Home/Forum/doReplyThread.html') { 回复成功(); } else { 未知(); }
