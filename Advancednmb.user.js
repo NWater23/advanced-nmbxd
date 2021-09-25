@@ -12,7 +12,7 @@
 // @match       https://adnmb3.com/*
 // @require     https://code.jquery.com/jquery-2.2.4.min.js
 // @license     Apache License, Version 2.0 (Apache-2.0); https://opensource.org/licenses/Apache-2.0
-// @version     0.4.3
+// @version     0.4.4
 // @author      no1xsyzy
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -33,6 +33,8 @@
     const [k, v] = kev.split('=', 2);
     params[k] = v;
   });
+
+  /* global GM_deleteValue, GM_getValue, GM_setValue */
 
   function 清空编辑 () {
     if (document.getElementsByClassName('success')[0].textContent.includes('回复成功')) {
@@ -72,17 +74,24 @@
   }
 
   function 自动标题 () {
-    const page = params.page || 1;
+    const 页码 = params.page || 1;
+    const 标题 = 选择标题();
+    document.querySelector('title').textContent = `${标题} - page. ${页码} - A岛匿名版`;
+  }
+
+  function 选择标题 () {
     const title = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-info .h-threads-info-title').textContent.trim();
     if (title !== '无标题') {
-      document.querySelector('title').textContent = `${title} - page. ${page} - A岛匿名版`;
-      return
+      return title
     }
-    const lines = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content').textContent.split('\n');
+    const red = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content font[color="red"]').textContent.trim().replace(/^=+/, '');
+    if (red !== '') {
+      return red
+    }
+    const lines = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content').innerText.split('\n');
     for (let line of lines) {
       if ((line = line.trim()) !== '') {
-        document.querySelector('title').textContent = `${line} - page. ${page} - A岛匿名版`;
-        return
+        return line
       }
     }
   }
