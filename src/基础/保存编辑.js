@@ -1,6 +1,8 @@
 import 正文框 from './正文框'
 import 参数 from './参数'
 
+/* global GM_deleteValue, GM_getValue, GM_setValue */
+
 export function 清空编辑 () {
   if (document.getElementsByClassName('success')[0].textContent.includes('回复成功')) {
     const 主串路径 = /https?:\/\/[^/]+(\/t\/\d+)/.exec(document.getElementById('href').href)[1]

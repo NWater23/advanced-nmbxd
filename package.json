@@ -9,6 +9,7 @@
     "add_built": "git add Advancednmb.user.js"
   },
   "pre-commit":[
+    "lint",
     "build",
     "add_built"
   ],
