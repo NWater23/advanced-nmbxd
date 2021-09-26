@@ -12,7 +12,7 @@
 // @match       https://adnmb3.com/*
 // @require     https://code.jquery.com/jquery-2.2.4.min.js
 // @license     Apache License, Version 2.0 (Apache-2.0); https://opensource.org/licenses/Apache-2.0
-// @version     0.4.5
+// @version     0.4.6
 // @author      no1xsyzy
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -79,15 +79,34 @@
     document.querySelector('title').textContent = `${标题} - page. ${页码} - A岛匿名版`;
   }
 
+  function visit (root, cb) {
+    if (cb(root) === '停止') {
+      return
+    }
+
+    for (const child of root.children) {
+      visit(child, cb);
+    }
+  }
+
   function 选择标题 () {
     const title = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-info .h-threads-info-title').textContent.trim();
     if (title !== '无标题') {
       return title
     }
-    const red = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content font[color="red"]')?.textContent.trim().replace(/^=+/, '');
-    if (typeof red === 'string' && red !== '') {
-      return red
+
+    const mainContent = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content');
+    let red = null;
+    visit(mainContent, el => {
+      if (window.getComputedStyle(el).color === 'rgb(255, 0, 0)') {
+        red = el;
+        return '停止'
+      }
+    });
+    if (red !== null) {
+      return red.textContent.trim().replace(/^[=\s]+/, '')
     }
+
     const lines = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content').innerText.split('\n');
     for (let line of lines) {
       if ((line = line.trim()) !== '') {
