@@ -11,8 +11,8 @@ function 选择标题 () {
   if (title !== '无标题') {
     return title
   }
-  const red = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content font[color="red"]').textContent.trim().replace(/^=+/, '')
-  if (red !== '') {
+  const red = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content font[color="red"]')?.textContent.trim().replace(/^=+/, '')
+  if (typeof red === 'string' && red !== '') {
     return red
   }
   const lines = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content').innerText.split('\n')

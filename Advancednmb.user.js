@@ -12,7 +12,7 @@
 // @match       https://adnmb3.com/*
 // @require     https://code.jquery.com/jquery-2.2.4.min.js
 // @license     Apache License, Version 2.0 (Apache-2.0); https://opensource.org/licenses/Apache-2.0
-// @version     0.4.4
+// @version     0.4.5
 // @author      no1xsyzy
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -84,8 +84,8 @@
     if (title !== '无标题') {
       return title
     }
-    const red = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content font[color="red"]').textContent.trim().replace(/^=+/, '');
-    if (red !== '') {
+    const red = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content font[color="red"]')?.textContent.trim().replace(/^=+/, '');
+    if (typeof red === 'string' && red !== '') {
       return red
     }
     const lines = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content').innerText.split('\n');
