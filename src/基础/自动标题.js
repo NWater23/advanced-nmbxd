@@ -1,7 +1,7 @@
 import { 搜索参数, 路径分块 } from './URL信息'
 
 export function 自动标题 () {
-  const 页码 = 路径分块[0] === 'Forum' ? 路径分块[5]?.replace(/\.html$/,'') || 1 : 搜索参数.page || 1
+  const 页码 = 路径分块[0] === 'Forum' ? 路径分块[5]?.replace(/\.html$/, '') || 1 : 搜索参数.page || 1
   const 标题 = 选择标题()
   document.querySelector('title').textContent = `${标题} - page. ${页码} - A岛匿名版`
 }
@@ -26,7 +26,7 @@ function 选择标题 () {
   const redTexts = []
   visit(mainContent, el => {
     if (window.getComputedStyle(el).color === 'rgb(255, 0, 0)') {
-      redTexts.push(el.textContent.replace(/^[=\s+]|[=\s+]$/, ''))
+      redTexts.push(el.textContent.replace(/^[=\s+]+|[=\s+]+$/, ''))
       return '停止'
     }
   })

@@ -12,7 +12,7 @@
 // @match       https://adnmb3.com/*
 // @require     https://code.jquery.com/jquery-2.2.4.min.js
 // @license     Apache License, Version 2.0 (Apache-2.0); https://opensource.org/licenses/Apache-2.0
-// @version     0.4.7
+// @version     0.4.8
 // @author      no1xsyzy
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -102,7 +102,7 @@
     const redTexts = [];
     visit(mainContent, el => {
       if (window.getComputedStyle(el).color === 'rgb(255, 0, 0)') {
-        redTexts.push(el.textContent.replace(/^[=\s+]|[=\s+]$/, ''));
+        redTexts.push(el.textContent.replace(/^[=\s+]+|[=\s+]+$/, ''));
         return '停止'
       }
     });
