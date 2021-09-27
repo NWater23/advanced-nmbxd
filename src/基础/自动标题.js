@@ -23,15 +23,16 @@ function 选择标题 () {
   }
 
   const mainContent = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content')
-  let red = null
+  const redTexts = []
   visit(mainContent, el => {
     if (window.getComputedStyle(el).color === 'rgb(255, 0, 0)') {
-      red = el
+      redTexts.push(el.textContent.replace(/^[=\s+]|[=\s+]$/, ''))
       return '停止'
     }
   })
-  if (red !== null) {
-    return red.textContent.trim().replace(/^[=\s]+/, '')
+  const red = redTexts.join('')
+  if (red !== '') {
+    return red
   }
 
   const lines = document.querySelector('.h-threads-list .h-threads-item-main .h-threads-content').innerText.split('\n')
