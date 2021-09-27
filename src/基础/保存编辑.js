@@ -1,5 +1,5 @@
 import 正文框 from './正文框'
-import 参数 from './参数'
+import { 搜索参数 } from './URL信息'
 
 /* global GM_deleteValue, GM_getValue, GM_setValue */
 
@@ -11,7 +11,7 @@ export function 清空编辑 () {
 }
 
 export function 载入编辑 () {
-  正文框.value = GM_getValue(window.location.pathname, 参数.r ? `>>No.${参数.r}\n` : '')
+  正文框.value = GM_getValue(window.location.pathname, 搜索参数.r ? `>>No.${搜索参数.r}\n` : '')
 }
 
 export function 注册自动保存编辑 () {

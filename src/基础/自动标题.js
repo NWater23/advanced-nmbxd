@@ -1,7 +1,7 @@
-import 参数 from './参数'
+import { 搜索参数, 路径分块 } from './URL信息'
 
 export function 自动标题 () {
-  const 页码 = 参数.page || 1
+  const 页码 = 路径分块[0] === 'Forum' ? 路径分块[5]?.replace(/\.html$/,'') || 1 : 搜索参数.page || 1
   const 标题 = 选择标题()
   document.querySelector('title').textContent = `${标题} - page. ${页码} - A岛匿名版`
 }

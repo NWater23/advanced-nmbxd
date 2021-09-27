@@ -12,7 +12,7 @@
 // @match       https://adnmb3.com/*
 // @require     https://code.jquery.com/jquery-2.2.4.min.js
 // @license     Apache License, Version 2.0 (Apache-2.0); https://opensource.org/licenses/Apache-2.0
-// @version     0.4.6
+// @version     0.4.7
 // @author      no1xsyzy
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -28,11 +28,14 @@
   var 正文框 = document.querySelector('textarea.h-post-form-textarea');
 
   const search = window.location.search;
-  const params = {};
+  const 搜索参数 = {};
   search.replace(/^\?/, '').split('&').forEach(kev => {
     const [k, v] = kev.split('=', 2);
-    params[k] = v;
+    搜索参数[k] = v;
   });
+
+  const 路径 = window.location.pathname;
+  const 路径分块 = 路径.split('/').splice(1);
 
   /* global GM_deleteValue, GM_getValue, GM_setValue */
 
@@ -44,7 +47,7 @@
   }
 
   function 载入编辑 () {
-    正文框.value = GM_getValue(window.location.pathname, params.r ? `>>No.${params.r}\n` : '');
+    正文框.value = GM_getValue(window.location.pathname, 搜索参数.r ? `>>No.${搜索参数.r}\n` : '');
   }
 
   function 注册自动保存编辑 () {
@@ -74,7 +77,7 @@
   }
 
   function 自动标题 () {
-    const 页码 = params.page || 1;
+    const 页码 = 路径分块[0] === 'Forum' ? 路径分块[5]?.replace(/\.html$/, '') || 1 : 搜索参数.page || 1;
     const 标题 = 选择标题();
     document.querySelector('title').textContent = `${标题} - page. ${页码} - A岛匿名版`;
   }
@@ -141,9 +144,7 @@
     注册粘贴图片();
   }
 
-  const path = window.location.pathname;
-  const pathsegs = path.split('/').splice(1);
-  switch (pathsegs[0]) {
+  switch (路径分块[0]) {
     case 't':
       串();
       break
@@ -151,10 +152,10 @@
       版块();
       break
     case 'Forum':
-      if (pathsegs[1] === 'po' && pathsegs[2] === 'id') { 串只看po(); } else { 未知(); }
+      if (路径分块[1] === 'po' && 路径分块[2] === 'id') { 串只看po(); } else { 未知(); }
       break
     case 'Home':
-      if (path === '/Home/Forum/doReplyThread.html') { 回复成功(); } else { 未知(); }
+      if (路径 === '/Home/Forum/doReplyThread.html') { 回复成功(); } else { 未知(); }
       break
     default:
       未知();
