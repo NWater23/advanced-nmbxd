@@ -26,7 +26,10 @@ function 选择标题 () {
   const redTexts = []
   visit(mainContent, el => {
     if (window.getComputedStyle(el).color === 'rgb(255, 0, 0)') {
-      redTexts.push(el.textContent.replace(/^[=\s+]+|[=\s+]+$/, ''))
+      const redSegment = el.textContent.replace(/^[=\s+]+|[=\s+]+$/, '')
+      if (redSegment !== '') {
+        redTexts.push(redSegment)
+      }
       return '停止'
     }
   })
