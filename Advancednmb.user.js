@@ -2,16 +2,8 @@
 // @name        增强黎明版
 // @description 增强黎明版的一些交互
 // @namespace   no1xsyzy
-// @match       http://adnmb.com/*
-// @match       https://adnmb.com/*
-// @match       http://adnmb1.com/*
-// @match       https://adnmb1.com/*
-// @match       http://adnmb2.com/*
-// @match       https://adnmb2.com/*
-// @match       http://adnmb3.com/*
-// @match       https://adnmb3.com/*
-// @match       http://nimingban.org/*
-// @match       https://nimingban.org/*
+// @match       http://www.nmbxd1.com/*
+// @match       https://www.nmbxd1.com/*
 // @require     https://code.jquery.com/jquery-2.2.4.min.js
 // @license     Apache License, Version 2.0 (Apache-2.0); https://opensource.org/licenses/Apache-2.0
 // @version     0.5.0

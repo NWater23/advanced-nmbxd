@@ -1,9 +1,5 @@
 const DOMAINS = [
-  'adnmb.com',
-  'adnmb1.com',
-  'adnmb2.com',
-  'adnmb3.com',
-  'nimingban.org'
+  'www.nmbxd1.com'
 ]
 
 const match = DOMAINS.map(d => [`http://${d}/*`, `https://${d}/*`]).flat()
