@@ -1,19 +1,20 @@
 {
-  "name": "Advancednmb",
+  "name": "advanced-nmbxd",
   "version": "0.6.0",
-  "description": "Advanced Adnmb",
+  "description": "Advanced nmxXD",
   "main": "src/main.js",
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint src",
-    "add_built": "git add Advancednmb.user.js"
+    "add_built": "git add advanced-nmbxd.user.js"
   },
   "pre-commit":[
     "lint",
     "build",
     "add_built"
   ],
-  "author": "no1xsyzy",
+  "author": "nwater23",
+  "contributors": ["no1xsyzy"],
   "license": "Apache-2.0",
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",

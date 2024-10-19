@@ -14,7 +14,7 @@ const metab = metablock({
 export default {
   input: 'src/main.js',
   output: {
-    file: 'Advancednmb.user.js',
+    file: 'advanced-nmbxd.user.js',
     format: 'iife',
     globals: {
       jquery: '$'

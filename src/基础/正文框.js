@@ -1,1 +1,2 @@
-export default document.querySelector('textarea.h-post-form-textarea')
+import $ from 'jquery'
+export default $('textarea.h-post-form-textarea')

@@ -5,9 +5,9 @@ const DOMAINS = [
 const match = DOMAINS.map(d => [`http://${d}/*`, `https://${d}/*`]).flat()
 
 module.exports = {
-  name: '增强黎明版',
-  description: '增强黎明版的一些交互',
-  namespace: 'no1xsyzy',
+  name: '增强x岛匿名版',
+  description: '',
+  namespace: 'nwater23',
   match,
   grant: ['GM_setValue', 'GM_getValue', 'GM_deleteValue'],
   require: ['https://code.jquery.com/jquery-2.2.4.min.js'],

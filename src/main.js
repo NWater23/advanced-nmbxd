@@ -5,7 +5,9 @@ import 回复成功 from './路由/回复成功'
 import 未知 from './路由/未知'
 import { 路径, 路径分块 } from './基础/URL信息'
 
-switch (路径分块[0]) {
+const 一层路径 = 路径分块[0] === 'm' ? 路径分块[1] : 路径分块[0]
+
+switch (一层路径) {
   case 't':
     串()
     break
