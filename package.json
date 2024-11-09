@@ -1,6 +1,6 @@
 {
   "name": "advanced-nmbxd",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Advanced nmxXD",
   "main": "src/main.js",
   "scripts": {
@@ -8,13 +8,15 @@
     "lint": "eslint src",
     "add_built": "git add advanced-nmbxd.user.js"
   },
-  "pre-commit":[
+  "pre-commit": [
     "lint",
     "build",
     "add_built"
   ],
   "author": "nwater23",
-  "contributors": ["no1xsyzy"],
+  "contributors": [
+    "no1xsyzy"
+  ],
   "license": "Apache-2.0",
   "devDependencies": {
     "@rollup/plugin-json": "^4.1.0",

@@ -4,8 +4,9 @@
 // @match     http://www.nmbxd1.com/*
 // @match     https://www.nmbxd1.com/*
 // @require   https://code.jquery.com/jquery-2.2.4.min.js
+// @require   https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
 // @license   Apache License, Version 2.0 (Apache-2.0); https://opensource.org/licenses/Apache-2.0
-// @version   0.6.0
+// @version   0.6.1
 // @author    nwater23
 // @grant     GM_setValue
 // @grant     GM_getValue
@@ -113,7 +114,7 @@
 
   function 注册自动保存编辑 () {
     $__default['default'](保存编辑);
-    $__default['default']('form').on('keyup', 保存编辑);
+    $__default['default']('form').on('input', 保存编辑);
   }
 
   function 保存编辑 () {
@@ -125,10 +126,23 @@
 
   function 注册追记引用串号 () {
     $__default['default']('body').on('click', 'a.h-threads-info-id', e => {
-      if (正文框.value.length > 0 && !正文框.value.endsWith('\n')) {
-        正文框.value += '\n';
-      }
-      正文框.value += `>>${e.target.textContent}\n`;
+      const start = 正文框.prop('selectionStart');
+      const end = 正文框.prop('selectionEnd');
+      const len = end - start;
+      const str = 正文框.val();
+      const left = str.substring(0, start);
+      const right = str.substring(end);
+      const ref = `>>${e.target.textContent.trim()}`;
+      正文框.val(
+        start === 0
+          ? `${ref}\n${right}`
+          : end === str.length
+            ? `${left}\n${ref}\n`
+            : len > 0
+              ? `${left} ${ref} ${right}`
+              : `${left}\n${ref}`
+      );
+      正文框.trigger('input', '');
       保存编辑();
       e.preventDefault();
     });
@@ -200,6 +214,8 @@
   }
 
   function 版块 () {
+    注册自动保存编辑();
+    注册追记引用串号();
     注册粘贴图片();
   }
 

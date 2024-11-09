@@ -19,7 +19,7 @@ export function 载入编辑 () {
 
 export function 注册自动保存编辑 () {
   $(保存编辑)
-  $('form').on('keyup', 保存编辑)
+  $('form').on('input', 保存编辑)
 }
 
 export function 保存编辑 () {
