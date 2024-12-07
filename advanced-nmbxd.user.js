@@ -1,16 +1,16 @@
 // ==UserScript==
-// @name      增强x岛匿名版
-// @namespace nwater23
-// @match     http://www.nmbxd1.com/*
-// @match     https://www.nmbxd1.com/*
-// @require   https://code.jquery.com/jquery-2.2.4.min.js
-// @require   https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
-// @license   Apache License, Version 2.0 (Apache-2.0); https://opensource.org/licenses/Apache-2.0
-// @version   0.6.1
-// @author    nwater23
-// @grant     GM_setValue
-// @grant     GM_getValue
-// @grant     GM_deleteValue
+// @name        增强x岛匿名版
+// @description 保存编辑内容，发串前显示预览，粘贴插入图片，自动设置网页标题（修改自no1xsyzy的增强黎明板）
+// @namespace   nwater23
+// @match       http://www.nmbxd1.com/*
+// @match       https://www.nmbxd1.com/*
+// @require     https://code.jquery.com/jquery-2.2.4.min.js
+// @license     Apache-2.0
+// @version     0.7.0
+// @author      nwater23
+// @grant       GM_setValue
+// @grant       GM_getValue
+// @grant       GM_deleteValue
 // ==/UserScript==
 (function ($) {
   'use strict';
@@ -201,12 +201,68 @@
     }
   }
 
+  /*
+   *  @param {string} machineReadableTime 1970-01-01(四)00:00:00
+   */
+  function getFriendlyTime (machineReadableTime) {
+    /*
+      const yr = machineReadableTime.slice(0, 4)
+      const mo = machineReadableTime.slice(5, 7)
+      const day = machineReadableTime.slice(8, 10)
+      const hr = machineReadableTime.slice(13, 15)
+      const min = machineReadableTime.slice(16, 18)
+      const sec = machineReadableTime.slice(19, 21)
+      const date = new Date(yr, mo - 1, day, hr, min, sec)
+    */
+    const date = new Date(machineReadableTime);
+    const now = new Date();
+    if (now < date) return machineReadableTime
+    let friendlyDate = machineReadableTime.slice(0, 10);
+    let friendlyTime = machineReadableTime.slice(13, 21);
+    const weekday = machineReadableTime.slice(11, 12);
+
+    const diff = (now.getTime() - date.getTime()) / 1000;
+    if (diff < 60) {
+      friendlyTime = `${Math.floor(diff)}秒前`;
+    } else if (diff < 3600) {
+      friendlyTime = `${Math.floor(diff / 60)}分钟前`;
+    } else if (diff < 24 * 3600) {
+      friendlyTime = `${Math.floor(diff / 3600)}小时前 ${friendlyTime}`;
+    }
+
+    const yesterday = new Date(new Date(now - 1000 * 60 * 60 * 24).toLocaleDateString());
+    if (now.toLocaleDateString() === date.toLocaleDateString()) {
+      friendlyDate = '今天';
+    } else if (yesterday.toLocaleDateString() === date.toLocaleDateString()) {
+      friendlyDate = '昨天';
+    } else if (yesterday - date < 1000 * 60 * 60 * 24 * 30) {
+      friendlyDate = `${Math.floor((now - date) / (1000 * 60 * 60 * 24))}天前`;
+    } else if (now.getFullYear() === date.getFullYear()) {
+      friendlyDate = friendlyDate.slice(5);
+    } else {
+      friendlyDate = `${now.getFullYear() - date.getFullYear()}年前 ${friendlyDate}`;
+    }
+    return `${friendlyDate}(${weekday})${friendlyTime}`
+  }
+
+  function formatDateStrOnPage () {
+    const targets = $__default['default']('span.h-threads-info-createdat');
+    targets.each(function () {
+      const target = $__default['default'](this);
+      const timeStr = target.attr('title') || target.text().trim();
+      target.attr('title', timeStr);
+      const friendlyTime = getFriendlyTime(timeStr);
+      target.text(friendlyTime);
+    });
+  }
+
   function 串 () {
     载入编辑();
     注册追记引用串号();
     注册自动保存编辑();
     注册粘贴图片();
     自动标题();
+    setInterval(formatDateStrOnPage, 2500);
   }
 
   function 串只看po () {
@@ -217,6 +273,7 @@
     注册自动保存编辑();
     注册追记引用串号();
     注册粘贴图片();
+    setInterval(formatDateStrOnPage, 2500);
   }
 
   function 回复成功 () {
@@ -242,6 +299,9 @@
       break
     case 'Home':
       if (路径 === '/Home/Forum/doReplyThread.html') { 回复成功(); } else { 未知(); }
+      break
+    case 'Member':
+      if (路径.startsWith('/Member/User/Cookie/export/id/')) { console.debug('//TODO'); }
       break
     default:
       未知();
